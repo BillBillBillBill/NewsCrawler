@@ -1,0 +1,4 @@
+pymongo
+scrapy
+redis
+fake-useragent
