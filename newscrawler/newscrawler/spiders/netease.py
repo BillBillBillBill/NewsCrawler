@@ -3,8 +3,8 @@ import scrapy
 import re
 import time
 from datetime import datetime
-from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 from scrapy.shell import inspect_response
 from newscrawler.items import NewsItem
 

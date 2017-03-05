@@ -5,12 +5,14 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 import logging
+import random
 from utils import redis_conn, redis_url_key
 from scrapy import signals
 from scrapy.conf import settings
 from scrapy.exceptions import IgnoreRequest
-from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from fake_useragent import UserAgent
+from settings import USER_ANGENT_LIST
 logger = logging.getLogger(__name__)
 
 
@@ -20,20 +22,21 @@ class RedisMiddleware(object):
     """
 
     def process_request(self, request, spider):
-        if redis_conn.hexists(redis_url_key, request.url):
-            logger.info("URL %s has been crawled" % request.url)
+        if request.url not in spider.start_urls and redis_conn.hexists(redis_url_key, request.url):
+            logger.info("Skip URL: %s, has been crawled" % request.url)
             raise IgnoreRequest("URL %s has been crawled" % request.url)
 
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
 
-    def __init__(self):
-        self.ua = UserAgent()
-        self.ua.update()
+    def __init__(self, user_agent=''):
+        self.user_agent = user_agent
+        self.USER_ANGENT_LIST = USER_ANGENT_LIST
 
     def process_request(self, request, spider):
-        request.headers.setdefault('User-Agent', self.ua.random)
-        return request
+        random_ua = random.choice(self.USER_ANGENT_LIST)
+        self.user_agent = random_ua
+        request.headers.setdefault('User-Agent', random_ua)
 
 
 class NewscrawlerSpiderMiddleware(object):

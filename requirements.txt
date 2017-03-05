@@ -2,3 +2,6 @@ pymongo
 scrapy
 redis
 fake-useragent
+django
+mongoengine
+jieba
