@@ -6,7 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 import logging
 import random
-from utils import redis_conn, redis_url_key
+from utils import redis_conn, redis_url_key, redis_invalid_url_key
 from scrapy import signals
 from scrapy.conf import settings
 from scrapy.exceptions import IgnoreRequest
@@ -22,7 +22,7 @@ class RedisMiddleware(object):
     """
 
     def process_request(self, request, spider):
-        if request.url not in spider.start_urls and redis_conn.hexists(redis_url_key, request.url):
+        if request.url not in spider.start_urls and (redis_conn.hexists(redis_url_key, request.url) or redis_conn.hexists(redis_invalid_url_key, request.url)):
             logger.info("Skip URL: %s, has been crawled" % request.url)
             raise IgnoreRequest("URL %s has been crawled" % request.url)
 

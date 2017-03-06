@@ -5,3 +5,4 @@ fake-useragent
 django
 mongoengine
 jieba
+scrapydo

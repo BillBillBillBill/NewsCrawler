@@ -9,3 +9,4 @@ redis_conn = redis.Redis(
     db=settings['REDIS_CONF']['db']
 )
 redis_url_key = "url"
+redis_invalid_url_key = "invalid_url"
