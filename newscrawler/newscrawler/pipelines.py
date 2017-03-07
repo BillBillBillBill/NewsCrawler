@@ -9,6 +9,7 @@ import logging
 from utils import redis_conn, redis_url_key
 from scrapy.conf import settings
 from scrapy.exceptions import DropItem
+from wechat_push import send_msg
 logger = logging.getLogger(__name__)
 
 
@@ -38,4 +39,11 @@ class RedisPipeline(object):
 
     def process_item(self, item, spider):
         redis_conn.hset(redis_url_key, item['url'], 0)
+        return item
+
+
+class PushPipeline(object):
+
+    def process_item(self, item, spider):
+        send_msg(title=item['title'], data=item['content'])
         return item

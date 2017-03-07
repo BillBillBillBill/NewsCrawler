@@ -25,7 +25,7 @@ def update_token(func):
 
 
 @update_token
-def send_msg(openid, title, data):
+def send_msg(title, data, openid=config.maintainers[0]):
     data = json.dumps({
         'touser': openid,
         'template_id': config.template_id,
@@ -50,4 +50,4 @@ if __name__ == '__main__':
     from IPython import embed
     embed()
     for maintainer in config.maintainers:
-        send_msg(maintainer, 'hello', 'start running~')
+        send_msg('hello', 'start running~', maintainer)

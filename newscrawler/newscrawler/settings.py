@@ -173,6 +173,7 @@ USER_ANGENT_LIST = [
 ITEM_PIPELINES = {
    'newscrawler.pipelines.MongoDBPipeline': 300,
    'newscrawler.pipelines.RedisPipeline': 400,
+   'newscrawler.pipelines.PushPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
