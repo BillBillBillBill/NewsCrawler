@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>文章内容</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+</head>
+<body ontouchstart>
+  <div>
+     <article class="weui-article">
+      <h1 id='title'>标题</h1>
+        <span id='published' style="color: #888888; margin-right: 5%; font-size: 10px;">时间</span><span id='source' style="color: #888888; font-size: 10px;">来源</span>
+        <section>
+          <p id='content'>
+            正文
+          </p>
+        </section>
+    </article>
+    </div>
+    <a id="goNews" style="margin-top: 10px" href="#" class="weui-btn weui-btn_primary">查看原文</a>
+    <a id="goSubscription" style="margin-top: 10px" href="#" class="weui-btn weui-btn_primary">订阅更多</a>
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script>
+    var newsId = window.location.search.slice(8);
+    $.get(
+        "/api/news",
+        {'news_id': newsId},
+        function(result) {
+            var news = result.data.news;
+            $('title').text(news.title);
+            $('#title').text(news.title);
+            $('#published').text(news.published);
+            $('#source').text(news.source);
+            $('#goNews').attr('href', news.url);
+            $('#goSubscription').attr('href', 'http://182.254.225.214');
+        }
+    );
+</script>
+</html>
