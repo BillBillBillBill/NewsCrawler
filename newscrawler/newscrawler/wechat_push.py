@@ -25,11 +25,11 @@ def update_token(func):
 
 
 @update_token
-def send_msg(title, data, openid=config.maintainers[0]):
+def send_msg(title, data, object_id, openid=config.maintainers[0]):
     data = json.dumps({
         'touser': openid,
         'template_id': config.template_id,
-        'url': config.template_url + title,  # 点击打开的链接
+        'url': config.template_url + object_id,  # 点击打开的链接
         'data': {
             'title': {
                 'value': title,
@@ -41,7 +41,7 @@ def send_msg(title, data, openid=config.maintainers[0]):
             },
         }
     }).encode()
-    url = config.send_url + config.access_token
+    url = config.send_url + object_id
     ret = requests.post(url, data)
     print 'send result: {}'.format(ret.text)
 

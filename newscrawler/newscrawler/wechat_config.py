@@ -7,4 +7,4 @@ expires_time = None
 
 template_id = 'B1ftH9IQr4Cuy_1M_94Je851RKGgQU-Uc0CH5ej4-oo'
 send_url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='
-template_url = 'https://www.google.com.hk/search?q='
+template_url = 'http://182.254.225.214/article.html?newsId='

@@ -25,7 +25,8 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
 <script>
-    var newsId = window.location.search.slice(8);
+    // objectId
+    var newsId = window.location.search.slice(8, 32);
     $.get(
         "/api/news",
         {'news_id': newsId},

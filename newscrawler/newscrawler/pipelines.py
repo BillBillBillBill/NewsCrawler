@@ -30,7 +30,8 @@ class MongoDBPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.news_collection.insert(dict(item))
+            object_id = self.news_collection.insert(dict(item))
+            spider.object_id = str(object_id)
             logger.info("Question added to MongoDB database!")
         return item
 
@@ -45,5 +46,9 @@ class RedisPipeline(object):
 class PushPipeline(object):
 
     def process_item(self, item, spider):
-        send_msg(title=item['title'], data=item['content'])
+        send_msg(
+            title=item['title'],
+            data=item['content'],
+            object_id=spider.object_id
+        )
         return item
