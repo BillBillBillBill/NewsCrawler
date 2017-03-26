@@ -7,6 +7,7 @@ import mongoengine
 def now():
     return datetime.datetime.utcnow()
 
+
 def get_utc_seconds(dt):
     return int(time.mktime(dt.timetuple()) - time.timezone)
 

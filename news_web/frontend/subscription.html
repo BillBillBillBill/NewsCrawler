@@ -9,17 +9,108 @@
 </head>
 <body ontouchstart>
 
+<h1 style="text-align: center;
+    font-size: 34px;
+    color: #3cc51f;
+    font-weight: 400;
+    margin: 0 15%;
+    padding: 35px 0;"
+>订阅</h1>
 
-<div class="weui-cells__title">文本框</div>
+<div class="weui-cells__title">已订阅关键词</div>
+<div class="weui-cells weui-cell_access" id="keyword_list">
+</div>
+
+<div class="weui-cells__title">订阅关键词</div>
 <div class="weui-cells">
   <div class="weui-cell">
     <div class="weui-cell__bd">
-      <input class="weui-input" type="text" placeholder="请输入文本">
+      <input id='keyword_to_add' class="weui-input" type="text" placeholder="请输入要订阅的关键词">
     </div>
   </div>
 </div>
-    <a style="margin-top: 20px" href="javascript:;" class="weui-btn weui-btn_primary">确定</a>
+<button id="add_keyword_btn" style="margin: 0.5em;" class="weui-btn weui-btn_primary">添加订阅关键词</button>
+<button id="go_back_btn" style="margin: 0.5em;" class="weui-btn weui-btn_default">返回</button>
+
 </body>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script>
+    var keyword_list = $('#keyword_list');
+    var all_keywords = [];
+
+    var delete_keyword = function(keyword) {
+      $.confirm({
+        title: '确认删除?',
+        text: '删除已订阅的关键词：' + keyword,
+        onOK: function () {
+          //点击确认
+          $.ajax({
+            method: 'DELETE',
+            url: "/api/subscriptions",
+            dataType: "json",
+            data: {keyword: keyword_to_add}
+          }).success(function() {
+            $('#keyword_' + keyword).remove();
+            $.toast("操作成功");
+          });
+        }
+      });
+    };
+
+    var createCell = function(keyword) {
+      var dom = document.createElement('div');
+      var head_dom = document.createElement('div');
+      var foot_dom = document.createElement('div');
+      dom.id = 'keyword_' + keyword;
+      $(dom).addClass('weui-cell');
+      $(head_dom).addClass('weui-cell__bd');
+      $(foot_dom).addClass('weui-cell__ft');
+      $(head_dom).text(keyword);
+      $(dom).click(
+        function () { delete_keyword(keyword) }
+      );
+      dom.appendChild(head_dom);
+      dom.appendChild(foot_dom);
+      $(dom).appendTo(keyword_list);
+    };
+
+    var get_keyword_list = function() {
+      createCell('shit');
+      createCell('shit123');
+      $.ajax({
+        method: 'GET',
+        url: "/api/subscriptions",
+        dataType: "json"
+      }).success(function(result) {
+        var subscriptions = result.data.subscriptions;
+        all_keywords = subscriptions.keywords || [];
+        for (var keyword of all_keywords) {
+          createCell(keyword);
+        }
+      });
+    };
+
+    var add_keyword = function() {
+      var keyword_to_add = $('#keyword_to_add').val();
+      if (all_keywords.indexOf(keyword_to_add) === -1) {
+        $.ajax({
+          method: 'POST',
+          url: "/api/subscriptions",
+          dataType: "json",
+          data: {keyword: keyword_to_add}
+        }).success(function() {
+          createCell(keyword_to_add);
+          $.toast("添加关键词" + keyword_to_add + "成功");
+        });
+      } else {
+        $.toast("关键词已存在，添加失败", "forbidden");
+      }
+    };
+
+    $('#add_keyword_btn').click(add_keyword);
+    $('#go_back_btn').click(function() { window.history.back(); });
+
+    get_keyword_list();
+</script>
 </html>

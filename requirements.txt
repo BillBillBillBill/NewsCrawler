@@ -8,3 +8,6 @@ jieba
 w3lib
 lxml
 twisted==16.4.1
+gevent==1.1.2
+greenlet==0.4.10
+gunicorn==19.6.0
