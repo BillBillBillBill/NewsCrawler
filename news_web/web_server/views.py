@@ -45,9 +45,10 @@ def get_news(request):
 
 
 def get_subscriptions(request):
+    subscription = Subscription.ensure_subscription(DEFAULT_WECHAT_OPENID)
     return JsonResponse(
         {
-            'subscriptions': [subscription.to_json() for subscription in Subscription.objects()]
+            'subscription': subscription.to_json()
         }
     )
 

@@ -76,15 +76,13 @@
     };
 
     var get_keyword_list = function() {
-      createCell('shit');
-      createCell('shit123');
       $.ajax({
         method: 'GET',
         url: "/api/subscriptions",
         dataType: "json"
       }).success(function(result) {
-        var subscriptions = result.data.subscriptions;
-        all_keywords = subscriptions.keywords || [];
+        var subscription = result.data.subscription;
+        all_keywords = subscription.keywords || [];
         for (var keyword of all_keywords) {
           createCell(keyword);
         }
