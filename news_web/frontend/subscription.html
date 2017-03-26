@@ -50,7 +50,7 @@
             url: "/api/subscriptions",
             dataType: "json",
             contentType: 'application/json',
-            data: JSON.stringify({keyword: keyword_to_add})
+            data: JSON.stringify({keyword: keyword})
           }).success(function() {
             $('#keyword_' + keyword).remove();
             $.toast("操作成功");
