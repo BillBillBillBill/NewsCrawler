@@ -50,7 +50,7 @@
             url: "/api/subscriptions",
             dataType: "json",
             contentType: 'application/json',
-            data: {keyword: keyword_to_add}
+            data: JSON.stringify({keyword: keyword_to_add})
           }).success(function() {
             $('#keyword_' + keyword).remove();
             $.toast("操作成功");
@@ -98,7 +98,7 @@
           url: "/api/subscriptions",
           dataType: "json",
           contentType: 'application/json',
-          data: {keyword: keyword_to_add}
+          data: JSON.stringify({keyword: keyword_to_add})
         }).success(function() {
           createCell(keyword_to_add);
           $.toast("添加关键词" + keyword_to_add + "成功");
