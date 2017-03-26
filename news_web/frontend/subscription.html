@@ -49,6 +49,7 @@
             method: 'DELETE',
             url: "/api/subscriptions",
             dataType: "json",
+            contentType: 'application/json',
             data: {keyword: keyword_to_add}
           }).success(function() {
             $('#keyword_' + keyword).remove();
@@ -96,6 +97,7 @@
           method: 'POST',
           url: "/api/subscriptions",
           dataType: "json",
+          contentType: 'application/json',
           data: {keyword: keyword_to_add}
         }).success(function() {
           createCell(keyword_to_add);
