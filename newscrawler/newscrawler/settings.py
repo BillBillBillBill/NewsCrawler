@@ -202,7 +202,8 @@ MONGO_CONF = {
     'host': 'localhost',
     'port': 27017,
     'db': 'news',
-    'collection': 'news'
+    'collection': 'news',
+    'subscription_collection': 'subscription'
 }
 
 

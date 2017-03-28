@@ -2,6 +2,7 @@
 appid = 'wx98236d864d8a122a'
 appsecret = '2530005d0440a7d3980ab6abca806357'
 token_url = 'https://api.weixin.qq.com/cgi-bin/token?'
+default_openid = 'oCfHOwD2_5ZpGctshTZPeZHqUIjc'
 maintainers = ['oCfHOwD2_5ZpGctshTZPeZHqUIjc']
 expires_time = None
 
