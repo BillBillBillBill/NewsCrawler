@@ -68,6 +68,7 @@ class PushPipeline(object):
             send_msg(
                 title=item['title'],
                 data=item['content'],
-                object_id=spider.object_id
+                object_id=spider.object_id,
+                openid=default_openid
             )
         return item

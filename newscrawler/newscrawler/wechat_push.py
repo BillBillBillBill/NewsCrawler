@@ -41,7 +41,7 @@ def send_msg(title, data, object_id, openid=config.maintainers[0]):
             },
         }
     }).encode()
-    url = config.send_url + object_id
+    url = config.send_url + config.access_token
     ret = requests.post(url, data)
     print 'send result: {}'.format(ret.text)
 
